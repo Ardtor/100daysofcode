@@ -1,2 +1,2 @@
 # 100daysofcode
-100 days of code - I'm a noob
+100 days of code - Python Edition - I'm a noob doing a course on Udemy
