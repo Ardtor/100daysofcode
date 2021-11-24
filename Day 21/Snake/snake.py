@@ -17,6 +17,7 @@ class Snake():
     
 
     def add_onto_snake(self,num):
+        #adds segments to the snake
         for num in range(num):
             segment = Turtle(shape="square")
             segment.color("white")
@@ -48,6 +49,9 @@ class Snake():
     def move_down(self):
         if self.head.heading() != UP:
             self.head.seth(DOWN)
+
+            
+    
     
 
 
