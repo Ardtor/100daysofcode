@@ -15,7 +15,7 @@ game_on = True
 snake = Snake()
 food = Food()
 scoreboard = Scoreboard()
-
+speed = 0.1
 
 screen.onkeypress(key="Up", fun=snake.move_up)
 screen.onkeypress(key="Left", fun=snake.move_left)
@@ -25,13 +25,15 @@ screen.onkeypress(key="Right", fun=snake.move_right)
 
 while game_on:    
     screen.update() #updates the screen after each loop
-    sleep(.1)  # sleeps for 0.25 seconds
+    sleep(speed)  # speed starts at .1 but goes faster on each food
     snake.move_snake()
 
     #food Collision 
     if snake.head.distance(food) <= 15:
         snake.add_onto_snake(1)
         scoreboard.update_score()
+        speed -= 0.001
+        
         food.spawn_food()
     
     #wall collision.
@@ -43,16 +45,11 @@ while game_on:
 
     #tall collision
 
-    for seg in snake.segments: # runs through each segment 
-        if seg == snake.head: #ignores the segment if it's snake.head
-            pass
-        elif snake.head.distance(seg) < 10: # else if the distance is less than 10 heading for a tail strike
+    for seg in snake.segments[1:]: # runs through each segment using slicing
+        if snake.head.distance(seg) < 10: # else if the distance is less than 10 heading for a tail strike
             game_on = False
             scoreboard.game_over()
             print("Tail strike")
-
-
-    
 
 
 #Exits on click, otherwise disappears
