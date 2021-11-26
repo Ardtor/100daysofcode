@@ -4,35 +4,30 @@ from turtle import Turtle
 COLORS = ["red", "orange", "yellow", "green", "blue", "purple"]
 STARTING_MOVE_DISTANCE = 5
 MOVE_INCREMENT = 5
-CAR_AMOUNT = 22
+CAR_AMOUNT = 28
 
-#turtle class to generate random cars
-
-class CarManager(Turtle): # didn't need it to inherit the turtle class since it's not needed but too lazy to refactor it all as it works with what I have
+# turtle class to generate random cars
+class CarManager:  # refactored it because it bugged me 15 minutes after realising
     def __init__(self) -> None:
-        super().__init__()
-        self.shape("square")
-        self.shapesize(stretch_wid=1,stretch_len=2)
-        self.color(random.choice(COLORS))
-        self.pu()
-        self.seth(180)
-        self.goto((random.randrange(-180,800, 20)),(random.randrange(-240,260,20)))
-        self.move_speed = STARTING_MOVE_DISTANCE
         self.car_list = []
+        self.move_speed = STARTING_MOVE_DISTANCE
 
-    def move_car(self):        
-        self.fd(self.move_speed)
+    def move_car(self):
+        for car in self.car_list:
+            if car.xcor() < -300:
+                car.goto((random.randrange(310, 800, 20)), (random.randrange(-240, 260, 20)))
+            car.fd(self.move_speed)
 
-    def restart(self):
-        self.goto((random.randrange(310,800,20)),(random.randrange(-240,260,20)))
-    
-    def level_up(self,list):
-        for _ in list:                
-            _.move_speed += MOVE_INCREMENT
+    def level_up(self):
+        self.move_speed += MOVE_INCREMENT
 
     def new_level(self):
-        for _ in range(0,CAR_AMOUNT):
-            new_car = CarManager()
+        for _ in range(0, CAR_AMOUNT):
+            new_car = Turtle()
+            new_car.shape("square")
+            new_car.shapesize(stretch_wid=1, stretch_len=2)
+            new_car.color(random.choice(COLORS))
+            new_car.pu()
+            new_car.seth(180)
+            new_car.goto((random.randrange(-180, 800, 20)), (random.randrange(-240, 260, 20)))
             self.car_list.append(new_car)
-
-

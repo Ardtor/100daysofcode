@@ -4,8 +4,7 @@ STARTING_POSITION = (0, -280)
 MOVE_DISTANCE = 10
 FINISH_LINE_Y = 280
 
-#turtle class
-
+# turtle class
 class Player(Turtle):
     def __init__(self) -> None:
         super().__init__()
@@ -15,11 +14,8 @@ class Player(Turtle):
         self.speed(0)
         self.goto(STARTING_POSITION)
 
-    def move_forward(self):                  
-            self.fd(MOVE_DISTANCE)
-        
-            
-            
+    def move_forward(self):
+        self.fd(MOVE_DISTANCE)
 
     def player_reset(self):
         if self.ycor() >= FINISH_LINE_Y:
