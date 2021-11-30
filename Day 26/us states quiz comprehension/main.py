@@ -26,7 +26,6 @@ df = pd.read_csv("data/50_states.csv")
 game_on = True
 score = 0
 correct_guesses = []
-missing_states = []
 attempts_left = df.state.size
 
 # main loop checks if the game is still on
@@ -56,10 +55,13 @@ while game_on is True and attempts_left > 0:
         game_on == False
         # loops through the df.state array and checks to see if the missing ones are in the correct guess
         # if not they will append to the missing states list and then be written out as a CSV file
-        for missing in df.state.array:
-            if missing not in correct_guesses:
-                missing_states.append(missing)
-                pd.DataFrame(missing_states, columns=["State"]).to_csv("data/missing_states.csv", index=1)
+
+        # Day 26, removed the below for loop with a list comprehension 
+        missing_states = [state for state in df.state.array if state not in correct_guesses]
+        # for missing in df.state.array:
+        #     if missing not in correct_guesses:
+        #         missing_states.append(missing)
+        pd.DataFrame(missing_states, columns=["State"]).to_csv("data/missing_states.csv", index=1)
         break
     else:
         print(f"You have {50-len(correct_guesses)} to guess and {attempts_left} attempts to go")
